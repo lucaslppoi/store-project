@@ -4,10 +4,11 @@ import { CreateUserDto } from './dtos/create-user-dto';
 import { User } from './schemas/user.schemas';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserDto } from './dtos/user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(createUserDto: CreateUserDto) {
     // vai salvar no banco a senha hasheada
@@ -24,6 +25,12 @@ export class UsersService {
   findAll() {
     const findedUsers = this.userModel.find().select('-password');
     return findedUsers;
+  }
+
+  async findByID(id: string) {
+    const findedUser = await this.userModel.findById(id).exec();
+
+    return new UserDto(findedUser);
   }
 
   private async userHash(pass) {

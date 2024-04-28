@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -14,7 +15,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) { }
+  constructor(private readonly userService: UsersService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -40,7 +41,7 @@ export class UsersController {
   }
 
   // usa com um Bearer Token
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.userService.findAll();

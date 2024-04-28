@@ -6,6 +6,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { CarsCategoryModule } from './cars-category/cars-category.module';
 import { CarsModule } from './cars/cars.module';
 import { CarsService } from './cars/cars.service';
+import { RentalModule } from './rental/rental.module';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -14,9 +16,9 @@ import { CarsService } from './cars/cars.service';
     UsersModule,
     CarsModule,
     CarsCategoryModule,
+    UsersModule,
+    RentalModule,
   ],
-  // controllers: [],
-  // providers: [CarsService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
